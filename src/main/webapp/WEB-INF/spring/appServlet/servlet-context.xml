@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	
+	<mvc:annotation-driven ignoreDefaultModelOnRedirect="true"/>
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.closedown.example" />
+	
+	<!-- 
+		LinkID : 링크허브에서 발급받은 파트너 링크아이디.
+		SecretKey : 링크허브에서 발급받는 비밀키.
+	-->
+	<util:properties id="EXAMPLE_CONFIG">
+		<beans:prop key="LinkID">TESTER</beans:prop>
+		<beans:prop key="SecretKey">SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=</beans:prop>
+	</util:properties>
+	
+	<beans:beans>
+		<!-- 휴폐업조회 Service Implementation Bean registration.	-->
+		<beans:bean id="closedownService" class="kr.co.linkhub.closedown.api.CloseDownCheckerImp">
+			<beans:property name="linkID" value="#{EXAMPLE_CONFIG.LinkID}"/>
+			<beans:property name="secretKey" value="#{EXAMPLE_CONFIG.SecretKey}"/>
+		</beans:bean>
+	</beans:beans>
+</beans:beans>
