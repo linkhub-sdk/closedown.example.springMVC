@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ClosedownController {
 	
 	@Autowired
-	private CloseDownChecker closedownService;
+	private CloseDownChecker closedownChecker;
 		
 	@Value("#{EXAMPLE_CONFIG.SecretKey}")
 	private String testUserID;
@@ -42,7 +42,7 @@ public class ClosedownController {
 	@RequestMapping(value = "getBalance", method = RequestMethod.GET)
 	public String getBalance(Model m) throws CloseDownException {
 		try {
-			double remainPoint = closedownService.getBalance();
+			double remainPoint = closedownChecker.getBalance();
 			
 			m.addAttribute("Result",remainPoint);
 			
@@ -58,7 +58,7 @@ public class ClosedownController {
 	public String getPartnerBalance(Model m) throws CloseDownException {
 		
 		try {
-			float unitCost = closedownService.getUnitCost();
+			float unitCost = closedownChecker.getUnitCost();
 			
 			m.addAttribute("Result",unitCost);
 			

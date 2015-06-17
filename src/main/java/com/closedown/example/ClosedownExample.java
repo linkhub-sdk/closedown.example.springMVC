@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("CloseDownService")
 public class ClosedownExample {
 	@Autowired
-	private CloseDownChecker closedownService;
+	private CloseDownChecker closedownChecker;
 		
 	@Value("#{EXAMPLE_CONFIG.SecretKey}")
 	private String testUserID;
@@ -47,7 +47,7 @@ public class ClosedownExample {
 		if(CorpNum !=null && CorpNum != ""){
 			
 			try {
-				CorpState corpState = closedownService.CheckCorpNum(CorpNum);
+				CorpState corpState = closedownChecker.CheckCorpNum(CorpNum);
 				
 				m.addAttribute("CorpState", corpState);
 				
@@ -68,7 +68,7 @@ public class ClosedownExample {
 		
 		try {
 			
-			CorpState[] corpStates = closedownService.CheckCorpNum(CorpNumList);
+			CorpState[] corpStates = closedownChecker.CheckCorpNum(CorpNumList);
 			
 			m.addAttribute("CorpStates", corpStates);
 			

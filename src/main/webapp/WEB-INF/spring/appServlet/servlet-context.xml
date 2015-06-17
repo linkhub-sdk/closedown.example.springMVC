@@ -38,7 +38,7 @@
 	
 	<beans:beans>
 		<!-- 휴폐업조회 Service Implementation Bean registration.	-->
-		<beans:bean id="closedownService" class="kr.co.linkhub.closedown.api.CloseDownCheckerImp">
+		<beans:bean id="closedownChecker" class="kr.co.linkhub.closedown.api.CloseDownCheckerImp">
 			<beans:property name="linkID" value="#{EXAMPLE_CONFIG.LinkID}"/>
 			<beans:property name="secretKey" value="#{EXAMPLE_CONFIG.SecretKey}"/>
 		</beans:bean>
